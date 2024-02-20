@@ -17,7 +17,6 @@ jobs:
       - name: Print Message
         run: echo "This is a simple job without dependencies"
   docker-build-push:
-    needs: java-build-test
     runs-on: ubuntu-latest
     permissions:
       contents: read
