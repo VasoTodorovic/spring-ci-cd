@@ -32,7 +32,7 @@ jobs:
           path: target/*.jar
 
   docker-build-push:
-    needs: java-build-test
+    needs: build-and-upload
     runs-on: ubuntu-latest
     permissions:
       contents: read
