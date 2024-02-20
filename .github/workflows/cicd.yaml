@@ -11,25 +11,31 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-upload:
+  java-build-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
-
-      - name: Build with Maven
-        run: mvn clean package -DskipTests -Ddistribution=repo
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+          distribution: 'temurin'
+          cache: maven
+      - name: Cache Maven packages
+        uses: actions/cache@v3
         with:
-          name: my-spring-boot-app
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+      - name: Build
+        run: ./mvnw -B clean package -DskipTests
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Package
           path: target/*.jar
+          retention-days: 2
 
   docker-build-push:
     needs: build-and-upload
