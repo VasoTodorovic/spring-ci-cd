@@ -11,12 +11,11 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  jobs:
-    print-message:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Print Message
-          run: echo "This is a simple job without dependencies"
+  print-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Message
+        run: echo "This is a simple job without dependencies"
   docker-build-push:
     needs: java-build-test
     runs-on: ubuntu-latest
