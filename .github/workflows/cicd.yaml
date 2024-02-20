@@ -30,7 +30,7 @@ jobs:
         with:
           name: my-spring-boot-app
           path:
-            target/*.jar print-message:
+            target/*.jar
   docker-build-push:
     runs-on: ubuntu-latest
     permissions:
