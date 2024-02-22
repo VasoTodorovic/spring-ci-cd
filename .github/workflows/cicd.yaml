@@ -30,6 +30,7 @@ jobs:
           path: target/*.jar
           retention-days: 2
   build-docker-image-push:
+    needs: build-and-upload
     runs-on: ubunut-latest
     steps:
       - name: Download Artifact
