@@ -43,6 +43,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
+      - name: Pushing docker image
         run: |
           docker build . -t ghcr.io/${{ github.repository }}:main
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main   password: ${{ secrets.GITHUB_TOKEN }}
